@@ -4,7 +4,7 @@ import { APPLICATIONS_DIR } from './consts';
 import { Application, isApplication, fileToApplication } from './application'
 import { Cache, getCache, createCache } from './cache';
 
-const filenamePattern: RegExp = /.*\.application\.json$/;
+const filenamePattern = /.*\.application\.json$/;
 
 function getApplicationCache(): Application[] {
     const cache = getCache(APPLICATIONS_DIR, '.cache');
