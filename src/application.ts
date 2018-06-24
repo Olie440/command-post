@@ -8,7 +8,7 @@ export interface Application {
     source: string
 }
 
-function isApplication(file: any): file is Application {
+export function isApplication(file: any): file is Application {
     return (
         isObject(file) &&
         isString(file.name) &&
