@@ -1,8 +1,8 @@
-import { readdirSync, readFileSync, existsSync, mkdirSync } from 'fs';
-import { isNull, isArray } from 'lodash';
+import { readdirSync, existsSync, mkdirSync } from 'fs';
+import { isNull, isArray, find } from 'lodash';
 import { APPLICATIONS_DIR } from './consts';
 import { Application, isApplication, fileToApplication } from './application'
-import { Cache, getCache, createCache } from './cache';
+import { getCache, createCache } from './cache';
 
 const filenamePattern = /.*\.application\.json$/;
 
@@ -42,3 +42,7 @@ export function getApplications(): Application[] {
     return applications;
 }
 
+export function getApplication(application: string): Application {
+    const applications = getApplications();
+    return find(applications, { name: application });
+}

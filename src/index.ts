@@ -1,10 +1,12 @@
-import { getApplications } from './application-launcher';
-import { APPLICATIONS_DIR } from './consts';
+import launchApplication from './bin/launch-application';
 
-const applications = getApplications();
+const [ command, ...args ] = process.argv.slice(2);
 
-if (!applications.length) {
-    console.log('No applications found, make sure', APPLICATIONS_DIR, 'has application files');
+switch(command) {
+    case 'application-launcher':
+        launchApplication();
+        break;
+
+    default:
+        console.log('command', command, 'not found');
 }
-
-applications.forEach(application => console.log(application.name));

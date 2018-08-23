@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Olie440/command-post#readme",
   "dependencies": {
+    "@types/es6-promise": "^3.3.0",
     "@types/lodash": "^4.14.110",
     "lodash": "^4.17.10"
   },
