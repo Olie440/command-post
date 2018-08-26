@@ -29,17 +29,8 @@ export function getApplications(): Application[] {
         mkdirSync(APPLICATIONS_DIR);
         return [];
     }
-
-    const cache = getApplicationCache();
-
-    if (!isNull(cache)) {
-        return cache;
-    }
-
-    const applications = generateApplicationList();
-    createCache(APPLICATIONS_DIR, '.cache', applications);
-
-    return applications;
+    
+    return generateApplicationList();
 }
 
 export function getApplication(application: string): Application {

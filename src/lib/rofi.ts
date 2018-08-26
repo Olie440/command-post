@@ -24,7 +24,10 @@ function getRofiCommand(): string {
     const config = getRofiConfig();
     const commandParts = [
         config.cmd,
-        '-dmenu'
+        '-dmenu',
+        '-i',
+        '-p',
+        '\$'
     ]
 
     if (config.theme) {

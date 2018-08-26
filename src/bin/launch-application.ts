@@ -8,7 +8,7 @@ function spawnApplication(name: string): void {
    const application = getApplication(name);
 
    spawn('i3-msg', [ 'workspace', application.name ], { detached: true });
-   spawn(application.command, application.args, { detached: true });
+   spawn('i3-msg', [ 'exec', application.command, ...application.args], { detached: true });
 }
 
 export default function launchApplication(): void {
