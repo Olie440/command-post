@@ -6,7 +6,8 @@ export interface Application {
     command: string
     type: string
     source: string,
-    args?: Array<string>
+    args?: Array<string>,
+    floating?: boolean
 }
 
 export function isApplication(file: any): file is Application {
@@ -37,6 +38,7 @@ export function fileToApplication(path: string): Application {
         command: file.command,
         type: file.type,
         source: path,
-        args: file.args || []
+        args: file.args || [],
+        floating: file.floating
     }
 }

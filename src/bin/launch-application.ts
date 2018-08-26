@@ -5,10 +5,13 @@ import launchRofi from '../lib/rofi';
 import { APPLICATIONS_DIR } from '../lib/consts';
 
 function spawnApplication(name: string): void {
-   const application = getApplication(name);
+    const application = getApplication(name);
 
-   spawn('i3-msg', [ 'workspace', application.name ], { detached: true });
-   spawn('i3-msg', [ 'exec', application.command, ...application.args], { detached: true });
+    if (!application.floating) {
+        spawn('i3-msg', [ 'workspace', application.name ], { detached: true });
+    }
+
+    spawn('i3-msg', [ 'exec', application.command, ...application.args], { detached: true });
 }
 
 export default function launchApplication(): void {
