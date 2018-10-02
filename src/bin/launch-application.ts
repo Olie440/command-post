@@ -1,20 +1,9 @@
-import { spawn } from 'child_process';
-
-import { getApplication, getApplications } from '../lib/application-launcher';
+import { getApplications } from '../lib/application-launcher';
 import launchRofi from '../lib/rofi';
 import { APPLICATIONS_DIR } from '../lib/consts';
+import { spawnApplication, SplitDirection } from '../lib/i3';
 
-function spawnApplication(name: string): void {
-    const application = getApplication(name);
-
-    if (!application.floating) {
-        spawn('i3-msg', [ 'workspace', application.name ], { detached: true });
-    }
-
-    spawn('i3-msg', [ 'exec', application.command, ...application.args], { detached: true });
-}
-
-export default function launchApplication(): void {
+export default function launchApplication(split: SplitDirection): void {
     const applications = getApplications();
 
     if (!applications.length) {
@@ -22,5 +11,6 @@ export default function launchApplication(): void {
         process.exit(1);
     }
 
-    launchRofi(applications).then(spawnApplication)
+    launchRofi(applications)
+        .then((name) => spawnApplication(name, split))
 }
