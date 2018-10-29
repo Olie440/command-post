@@ -1,5 +1,5 @@
 import { readdirSync, existsSync, mkdirSync } from 'fs';
-import { isNull, isArray, find } from 'lodash';
+import { isNull, isArray, find, sortBy } from 'lodash';
 import { APPLICATIONS_DIR } from './consts';
 import { Application, isApplication, fileToApplication } from './application'
 import { getCache, createCache } from './cache';
@@ -17,11 +17,13 @@ function getApplicationCache(): Application[] {
 }
 
 function generateApplicationList(): Application[] {
-    return readdirSync(APPLICATIONS_DIR, { encoding: 'utf8' })
+    const applications = readdirSync(APPLICATIONS_DIR, { encoding: 'utf8' })
         .filter(filename => filename.match(filenamePattern))
         .map(filename => `${APPLICATIONS_DIR}/${filename}`)
         .map(fileToApplication)
         .filter(isApplication);
+    
+    return sortBy(applications, 'name');
 }
 
 export function getApplications(): Application[] {
