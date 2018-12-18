@@ -18,7 +18,7 @@ export function spawnWindow(name: string, split: SplitDirection): void {
 export function spawnApplication(name: string, split: SplitDirection): void {
     const application = getApplication(name);
 
-    if (!application.floating) {
+    if (!application.floating && application.type !== 'Command') {
         spawnWindow(application.name, split);
     }
 

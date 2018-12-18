@@ -4,7 +4,7 @@ import { isObject, isString } from 'lodash';
 export interface Application {
     name: string
     command: string
-    type: string
+    type: 'Application' | 'Command',
     source: string,
     args?: Array<string>,
     floating?: boolean
