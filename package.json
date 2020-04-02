@@ -23,6 +23,6 @@
     "lodash": "^4.17.10"
   },
   "devDependencies": {
-    "@types/node": "^10.3.5"
+    "@types/node": "^10.17.18"
   }
 }

@@ -2,27 +2,19 @@ import { readdirSync, existsSync, mkdirSync } from 'fs';
 import { isNull, isArray, find, sortBy } from 'lodash';
 import { APPLICATIONS_DIR } from './consts';
 import { Application, isApplication, fileToApplication } from './application'
-import { getCache, createCache } from './cache';
+import openvpn from './openvpn';
 
 const filenamePattern = /.*\.application\.json$/;
 
-function getApplicationCache(): Application[] {
-    const cache = getCache(APPLICATIONS_DIR, '.cache');
-
-    if (isNull(cache) || !isArray(cache.data)) {
-        return null;
-    }
-
-    return cache.data.filter(isApplication);
-}
 
 function generateApplicationList(): Application[] {
     const applications = readdirSync(APPLICATIONS_DIR, { encoding: 'utf8' })
         .filter(filename => filename.match(filenamePattern))
         .map(filename => `${APPLICATIONS_DIR}/${filename}`)
         .map(fileToApplication)
-        .filter(isApplication);
-    
+        .filter(isApplication)
+        .concat(openvpn);
+
     return sortBy(applications, 'name');
 }
 
@@ -31,7 +23,7 @@ export function getApplications(): Application[] {
         mkdirSync(APPLICATIONS_DIR);
         return [];
     }
-    
+
     return generateApplicationList();
 }
 
